@@ -106,12 +106,12 @@ int main(){
     pthread_t readers[READERS],writers[WRITERS];
     int i;
     for(i=0;i<READERS;i++){
-        int *arg = (int *)malloc(sizeof(*arg));
+        int *arg = (int *)malloc(sizeof(int *));
         *arg = i;
         pthread_create(&readers[i],NULL,reader,arg);
     }
     for(i=0;i<WRITERS;i++){
-        int *arg = (int *)malloc(sizeof(*arg));
+        int *arg = (int *)malloc(sizeof(int *));
         *arg = i;
         pthread_create(&writers[i],NULL,writer,arg);
     }
