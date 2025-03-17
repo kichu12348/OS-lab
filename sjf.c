@@ -12,7 +12,7 @@
      this is non-preemptive
     i will use an array of structs called process
     each struct will have an id, arrival time, burst time, waiting time, and turnaround time and completed default 0 ie false
-    i will sort the array of structs by burst time
+
     then i will calculate the waiting time and turnaround time for each process
 */
 
@@ -29,24 +29,6 @@ typedef struct
 
 int hasCompleted = 0;
 int time = 0;
-
-// function to sort the array of structs by arrival time using bubble sort
-void sort(Process p[], int n)
-{
-    Process temp;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = i + 1; j < n; j++)
-        {
-            if (p[i].bt > p[j].bt)
-            {
-                temp = p[i];
-                p[i] = p[j];
-                p[j] = temp;
-            }
-        }
-    }
-}
 
 // function to calculate waiting time and turnaround time
 
@@ -94,7 +76,6 @@ int main()
         p[i].id = i + 1;
         p[i].completed = 0;
     }
-    //sort(p, n);
     runProcess(p, n);
     print(p, n);
     return 0;

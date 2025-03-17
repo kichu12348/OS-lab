@@ -23,61 +23,48 @@ typedef struct
     int id;  // process id
     int at;  // arrival time
     int bt;  // burst time
-    int tbt; //temp burst time
+    int rt; //temp burst time
     int wt;  // waiting time
     int tat; // turnaround time
     int completed; // completed flag
     int priority; // priority
 } Process;
 
-int hasCompleted = 0;
-int time = 0;
 
 
-
-//get the process with the highest priority
-
-int getHighestPriority(Process p[],int n){
-    int highestPriority = 100;
-    int shortest = -1;
-    for (int i = 0; i < n; i++)
-    {
-        if (p[i].at <= time && p[i].completed == 0)
-        {
-            if(p[i].priority < highestPriority){
-            highestPriority = p[i].priority;
-            shortest = i;
-            }
-            else if (p[i].priority==highestPriority && p[i].at<p[shortest].at) shortest = i;
-          
-        }
-    }
-    return shortest;
-}
 
 // function to calculate waiting time and turnaround time
+void priorityScheduling(Process p[], int n) {
+    int time= 0;
+    int completed = 0;
 
-void runProcess(Process p[],int n){
-    // calculate waiting time and turnaround time for each process
-    while (hasCompleted != n)
-    {
-        int shortest = getHighestPriority(p,n);
-        if(shortest==-1){
+    while(completed<n){
+        int highest = 100;
+        int idx=-1;
+        for(int i=0;i<n;i++){
+            if(
+                p[i].at<=time &&
+                !p[i].completed &&
+                p[i].priority<highest
+            ){
+                highest=p[i].priority;
+                idx=i;
+            }
+        }
+
+        if(idx==-1){
             time++;
             continue;
         }
 
-        if(p[shortest].tbt==p[shortest].bt){
-            p[shortest].wt = time - p[shortest].at;
-        }
-
-        p[shortest].tbt--;
+        p[idx].rt--;
         time++;
 
-        if(p[shortest].tbt==0){
-            p[shortest].completed = 1;
-            hasCompleted++;
-            p[shortest].tat = time - p[shortest].at;
+        if(p[idx].rt==0){
+            p[idx].tat = time - p[idx].at;
+            p[idx].wt = p[idx].tat - p[idx].bt;
+            p[idx].completed = 1;
+            completed++;
         }
     }
 }
@@ -107,9 +94,9 @@ int main()
         p[i].completed = 0;
         p[i].wt = 0;
         p[i].tat = 0;
-        p[i].tbt = p[i].bt;
+        p[i].rt = p[i].bt;
     }
-    runProcess(p, n);
+    priorityScheduling(p, n);
     print(p, n);
     return 0;
 }
