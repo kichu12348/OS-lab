@@ -47,7 +47,7 @@ Semaphore mutex={1}, wrt={1};
 
 
 void wait(Semaphore *s){
-    while(s->val<=0);
+    while(s->val<=0); // starvation of the cpu not at all ideal
     s->val--;
 }
 

@@ -37,18 +37,27 @@ void runProcess(Process p[], int n)
     // calculate waiting time and turnaround time for each process
     while (hasCompleted != n)
     {
-
-        for (int i = 0; i < n; i++)
-        {
-            if(!p[i].completed && p[i].at <= time)
-            {
-                p[i].wt = time - p[i].at;
-                p[i].tat = p[i].wt + p[i].bt;
-                time += p[i].bt;
-                p[i].completed = 1;
-                hasCompleted++;
+        int min = 9999;
+        int idx=-1;
+        for (int i = 0; i < n; i++){
+            if(
+                !p[i].completed && 
+                p[i].at <= time &&
+                p[i].bt < min
+            ){
+                min = p[i].bt;
+                idx = i;
             }
         }
+        if(idx == -1){
+            time++;
+            continue;
+        }
+        p[idx].wt = time - p[idx].at;
+        time += p[idx].bt;
+        p[idx].tat = time - p[idx].at;
+        p[idx].completed = 1;
+        hasCompleted++;
     }
 }
 
