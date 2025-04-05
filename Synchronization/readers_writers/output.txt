@@ -1,0 +1,9 @@
+gcc writer.c -o writer && ./writer
+Write Data : Hello from shared memory!
+Data written in memory : Hello from shared memory!
+
+/////////////////////////////////////////////////////
+
+gcc reader.c -o reader && ./reader
+Data read from memory: Hello from shared memory!
+
