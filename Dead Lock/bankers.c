@@ -1,5 +1,25 @@
 #include<stdio.h>
 
+
+/*
+Banker's Algorithm:
+1. Let Work and Finish be vectors of length 'm' and 'n' respectively.
+    Initialize: Work = Available
+    Finish[i] = false for i=1,2,3,...,n
+
+2. Find an i such that both:
+    a) Finish[i] = false
+    b) Need[i] <= Work
+    If no such i exists, go to step 4
+
+3. Work = Work + Allocation[i]
+    Finish[i] = true
+    Go to step 2
+
+4. If Finish[i] = true for all i,
+    then system is in safe state
+*/
+
 void banker(
     int avail[],
     int p[][10],
