@@ -1,6 +1,12 @@
 #include <stdio.h>
 
 
+/*
+    verfiying the output 
+    is a pain 💀💀💀💀
+*/
+
+
 typedef struct 
 {
     int freq;
