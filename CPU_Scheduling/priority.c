@@ -1,19 +1,13 @@
 #include<stdio.h>
 
 /*
-priority scheduling pre-emptive
-1. The process with the smallest priority number is selected for execution.
-2. If two processes have the same priority number, the process that arrived first is selected.
-3. The process that arrives first, gets added to the queue first, and runs first.
-4. The process that arrives next, gets added to the queue next, and runs next.
-5. The process that arrives last, gets added to the queue last, and runs last.
- this is pre-emptive
-
-i will use an array of structs called process
-each struct will have an id, arrival time, burst time, waiting time,
-turnaround time and completed default 0 ie false,
-priority,
-then i will calculate the waiting time and turnaround time for each process
+priority scheduling non preemptive algorithm
+1. input the number of processes
+2. input the arrival time, burst time and priority for each process
+3. find the process with the highest priority or lowest arrival time
+4. calculate the waiting time and turnaround time for each process
+5. print the waiting time and turnaround time for each process
+6. repeat steps 3 to 5 until all processes are completed
 */
 
 
@@ -23,7 +17,6 @@ typedef struct
     int id;  // process id
     int at;  // arrival time
     int bt;  // burst time
-    int rt; //temp burst time
     int wt;  // waiting time
     int tat; // turnaround time
     int completed; // completed flag
@@ -35,38 +28,31 @@ typedef struct
 
 // function to calculate waiting time and turnaround time
 void priorityScheduling(Process p[], int n) {
-    int time= 0;
-    int completed = 0;
-
+    int time = 0; // current time
+    int completed = 0; // number of completed processes
     while(completed<n){
-        int highest = 100;
         int idx=-1;
+        int minPriority=9999; // large number assuming the highest priority isnt 9999
+        // finding the process to execute
         for(int i=0;i<n;i++){
-            if(
-                p[i].at<=time &&
-                !p[i].completed &&
-                p[i].priority<highest
-            ){
-                highest=p[i].priority;
-                idx=i;
+            if(p[i].at<=time && p[i].completed==0){
+                if(p[i].priority<minPriority){
+                    minPriority=p[i].priority;
+                    idx=i;
+                }
             }
         }
-
         if(idx==-1){
             time++;
             continue;
         }
-
-        p[idx].rt--;
-        time++;
-
-        if(p[idx].rt==0){
-            p[idx].tat = time - p[idx].at;
-            p[idx].wt = p[idx].tat - p[idx].bt;
-            p[idx].completed = 1;
-            completed++;
-        }
+        p[idx].wt=time-p[idx].at;
+        time+=p[idx].bt;
+        p[idx].tat=time-p[idx].at;
+        p[idx].completed=1;
+        completed++;
     }
+    
 }
 
 // function to print the waiting time and turnaround time for each process
@@ -94,7 +80,6 @@ int main()
         p[i].completed = 0;
         p[i].wt = 0;
         p[i].tat = 0;
-        p[i].rt = p[i].bt;
     }
     priorityScheduling(p, n);
     print(p, n);

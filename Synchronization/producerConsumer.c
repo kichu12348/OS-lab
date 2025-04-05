@@ -1,12 +1,9 @@
 #include<stdio.h>
 #include<pthread.h>
 
-// Define the buffer size
 #define BUFFER_SIZE 10
 #define NUM_ITEMS 5
 
-
-// Define the buffer
 int buffer[BUFFER_SIZE];
 int in = 0,
     out = 0,
@@ -37,7 +34,6 @@ void *producer(void *arg) {
         buffer[in]=i;
         printf("Produced item %d\n",buffer[in]);
         in = (in+1)%BUFFER_SIZE;
-        //count
         count++;
         Signal(&mutex);
         Signal(&full);
@@ -66,3 +62,29 @@ void main (){
     pthread_join(prod,NULL);
     pthread_join(consum,NULL);
 }
+
+/*
+ALGORITHM:
+1.Start.
+2. Define the buffer size and number of items.
+3. Define the buffer, in, out, and count variables.
+4. Define the Semaphore structure.
+5. Define the wait and Signal functions.
+6. Define the producer function.
+7. Define the consumer function.
+8. In the producer function, iterate over the number of items to be produced.
+9. Wait for the empty semaphore.
+10. Wait for the mutex semaphore.
+11. Produce an item and print the message.
+12. Update the buffer, in, and count variables.
+13. Signal the mutex and full semaphores.
+14. In the consumer function, iterate over the number of items to be consumed.
+15. Wait for the full semaphore.
+16. Wait for the mutex semaphore.
+17. Consume an item and print the message.
+18. Update the buffer, out, and count variables.
+19. Signal the mutex and empty semaphores.
+20. Create the producer and consumer threads.
+21. Join the producer and consumer threads.
+22. End.
+*/
