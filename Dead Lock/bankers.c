@@ -18,6 +18,14 @@ Banker's Algorithm:
 
 4. If Finish[i] = true for all i,
     then system is in safe state
+    else system is not in safe state.
+
+5. Print the safe sequence.
+6. If system is not in a safe state, deadlock may occur.
+
+// 7. If deadlock is detected, the system is not in a safe state.
+// 8. Print the processes in deadlock.
+
 */
 
 void banker(
