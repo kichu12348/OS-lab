@@ -3,7 +3,26 @@
 
 
 /*
+Deadlock Detection Algorithm:
+1. Let Work and Finish be vectors of length 'm' and 'n' respectively.
+    Initialize: Work = Available
+    Finish[i] = false for i=1,2,3,...,n
 
+2. Find an i such that both:
+    a) Finish[i] = false
+    b) Request[i] <= Work
+    If no such i exists, go to step 4
+
+3. Work = Work + Allocation[i]
+    Finish[i] = true
+    Go to step 2
+
+4. If Finish[i] = true for all i,
+    then system is in safe state
+    else system is not in safe state and deadlock is detected.
+
+5. Print the processes in deadlock.
+6. If deadlock is detected, the system is not in a safe state.
 */
 
 void detection(
@@ -15,7 +34,7 @@ void detection(
 ){
     int work[m];
     for(int i=0;i<m;i++) work[i]=avail[i];
-    
+
     int count=0;
     int finish[n];
     for(int i=0;i<n;i++) finish[i]=0;
@@ -48,7 +67,9 @@ void detection(
     printf("\n");
     if(deadlock){
         printf("System is not safe deadlock detected\n");
+
     }
+    else printf("No deadlock detected\n");
 }
 
 void main(){
