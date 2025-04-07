@@ -15,7 +15,15 @@ working of program:
 5. if no suitable memory block is found, a message is displayed indicating that the process could not be allocated.
 6. the program continues until all processes have been allocated or all memory blocks have been used up.
 7. the program displays the size of each process, the size of each memory block, and the remaining size of each memory block after allocation.
-// 8. the program ends when all processes have been allocated or all memory blocks have been used up.
+8. the program ends when all processes have been allocated or all memory blocks have been used up.
+9. the isUsed variable is used to keep track of whether a memory block has been allocated or not.
+10. the ts variable is used to store the total size of the memory block.
+11. the rs variable is used to store the remaining size of the memory block.
+12. the Allocate function is used to allocate memory to processes.
+13. the main function is used to take input from the user and call the Allocate function.
+14. the program uses a structure to store the size of each memory block and whether it has been allocated or not.
+15. the program uses a loop to iterate through each process and find the largest available memory block that is large enough to satisfy the request.
+16. the program uses a loop to iterate through each memory block and find the largest available memory block that is large enough to satisfy the request.
 */
 
 
