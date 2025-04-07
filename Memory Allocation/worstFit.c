@@ -76,6 +76,7 @@ void main()
     {
         scanf("%d", &m[i].rs);
         m[i].ts = m[i].rs;
+        m[i].isUsed=0;
     }
     Allocate(p, m, n, q);
 }
