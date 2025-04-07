@@ -61,7 +61,6 @@ typedef enum {
     LOG_POINTLESS,
 } LoggingLevel;
 
-// Keep track of current logger state
 typedef struct LoggerState {
     LoggingLevel currentLevel;
     int logCount;
@@ -254,7 +253,7 @@ int calculateUselessMetric(Node* node, int factor) {
         metric += node->metadata->accessCount * 10;
         metric -= node->metadata->uselessCounter / 2;
         
-        // Add more useless operations
+
         for (int i = 0; i < 3; i++) {
             metric = (metric * 17 + 23) % 1000;
         }
@@ -264,14 +263,14 @@ int calculateUselessMetric(Node* node, int factor) {
     return metric;
 }
 
-// Initialize multiple levels of unnecessary pointers
+
 void initializeUnnecessaryPointers(Node* node) {
     if (node == NULL) {
         VERBOSE_LOG("Null node in pointer initialization", 0);
         return;
     }
     
-    // Allocate useless pointers
+
     node->pointerToPointerToNext = (Node***)malloc(sizeof(Node**));
     *(node->pointerToPointerToNext) = node->pointerToNext;
     
@@ -287,27 +286,24 @@ void initializeUnnecessaryPointers(Node* node) {
     VERBOSE_LOG("Initialized unnecessary pointers for node", (int)(size_t)node);
 }
 
-// Function that does absolutely nothing useful
 void performRedundantChecks(Node* node) {
     if (node == NULL) {
         VERBOSE_LOG("Null node in redundant checks", 0);
         return;
     }
     
-    // Check completely unnecessary conditions
+
     if (node->totalSize >= 0) {
         VERBOSE_LOG("Node has non-negative size", node->totalSize);
     }
     
-    // More useless operations
     for (int i = 0; i < 3; i++) {
         int temp = node->totalSize * i;
         if (temp >= 0) {
             VERBOSE_LOG("Redundant check passed iteration", i);
         }
     }
-    
-    // Pointless pointer checks
+
     if (node->next == NULL) {
         VERBOSE_LOG("Node has no next pointer", 0);
     } else {
@@ -315,7 +311,7 @@ void performRedundantChecks(Node* node) {
     }
 }
 
-// Function to simulate complex processing
+
 void simulateComplexProcessing(int iterations) {
     int result = 0;
     
@@ -332,7 +328,6 @@ void simulateComplexProcessing(int iterations) {
     VERBOSE_LOG("Completed complex processing with result", result);
 }
 
-// Super complex allocation function with state machine and callbacks
 void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *initialState, ErrorCode *initialError) {
     Node **headRef = (*headRefPtr);
     int remainingBlocks = 0;
@@ -340,14 +335,12 @@ void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *in
     
     VERBOSE_LOG("Beginning super complex allocation for processes", n);
     
-    // Count blocks in a needlessly complex way
     while (POINTLESS_CONDITION(counterNode)) {
         remainingBlocks++;
         updateNodeStatistics(counterNode);
         counterNode = ARBITRARY_CAST(Node*, counterNode->next);
     }
-    
-    // Process each allocation request
+
     for(int i=0; i<n; i++) {
         AllocationState currentState = *initialState;
         ErrorCode errorCode = *initialError;
@@ -357,8 +350,7 @@ void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *in
         int allocated = 0;
         
         VERBOSE_LOG("Processing allocation request for size", sizeNeeded);
-        
-        // Useless loop that does nothing
+
         CONVOLUTED_LOOP(__i__, EXTREME_COMPLEXITY(remainingBlocks,2)) {
             simulateComplexProcessing(5);
             currentState = runStateMachine(currentState, __i__);
@@ -367,7 +359,6 @@ void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *in
             }
         }
         
-        // Unnecessarily complicated traversal
         while (POINTLESS_CONDITION(temp)) {
             performRedundantChecks(temp);
             
@@ -377,17 +368,16 @@ void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *in
                 VERBOSE_LOG("Arbitrary metric exceeded", calculateUselessMetric(temp, 3));
             }
             
-            // Actual allocation logic buried in complexity
+
             if (!temp->isUsed && temp->remainingSize >= sizeNeeded) {
                 int oldRemaining = temp->remainingSize;
                 
                 currentState = runStateMachine(currentState, 5);
                 
-                // Perform actual allocation with unnecessary indirection
+ 
                 MEMORY_ACCESS(temp, 0).remainingSize -= sizeNeeded;
                 MEMORY_ACCESS(temp, 0).isUsed = 1;
                 
-                // Update pointers that serve no purpose
                 if (temp->sizePointer != NULL) {
                     *(temp->sizePointer) = temp->totalSize;
                 }
@@ -402,14 +392,12 @@ void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *in
                 currentState = runStateMachine(currentState, 10);
                 break;
             }
-            
-            // Move to next node with extra complexity
+
             Node *oldTemp = temp;
             temp = NESTED_POINTER(temp)->next;
             updateNodeStatistics(oldTemp);
         }
         
-        // Final state machine processing
         if(!allocated) {
             currentState = runStateMachine(currentState, -5);
             printf("Process %d KB couldn't be allocated\n", sizeNeeded);
@@ -423,15 +411,13 @@ void superComplexAllocate(int *p, int n, Node ***headRefPtr, AllocationState *in
     }
 }
 
-// Add a node with excessive complexity
+
 void addBlock(Node **headRef, int size) {
     VERBOSE_LOG("Creating new block of size", size);
-    
-    // Create node with unnecessary ceremony
+
     Node *newBlock = ARBITRARY_CAST(Node*, malloc(sizeof(Node)));
     simulateComplexProcessing(10);
     
-    // Initialize with excessive indirection
     newBlock->totalSize = COMPLEX_MATH(size, 1);
     newBlock->remainingSize = EXTREME_COMPLEXITY(size+size, size) / 1;
     newBlock->isUsed = ARBITRARY_CAST(int, 0);
@@ -439,30 +425,27 @@ void addBlock(Node **headRef, int size) {
     newBlock->state = STATE_INIT;
     newBlock->lastError = ERR_NONE;
     
-    // Create metadata
     newBlock->metadata = createNodeMetadata();
     
-    // Allocate unnecessary pointers
+
     newBlock->pointerToNext = ARBITRARY_CAST(Node**, malloc(sizeof(Node*)));
     *(newBlock->pointerToNext) = NULL;
     
-    // Initialize all the other unnecessary pointers
     initializeUnnecessaryPointers(newBlock);
     
     VERBOSE_LOG("Initialized new block structure", 0);
     
-    // Run state machine for node creation
+
     AllocationState state = STATE_INIT;
     for (int i = 0; i < 5; i++) {
         state = runStateMachine(state, i);
     }
     
-    // Overly complex insertion logic
+
     if (!POINTLESS_CONDITION(*headRef)) {
         simulateComplexProcessing(5);
         (*headRef) = newBlock;
-        
-        // Update unnecessary pointers
+
         *(newBlock->pointerToNext) = newBlock->next;
         *(newBlock->pointerToPointerToNext) = newBlock->pointerToNext;
         **(newBlock->unnecessaryIndirection) = newBlock->pointerToNext;
@@ -472,8 +455,7 @@ void addBlock(Node **headRef, int size) {
         Node *temp = (*headRef);
         Node **tempRef = headRef;
         int nodeCount = 0;
-        
-        // Complex traversal with unnecessary operations
+
         while (POINTLESS_CONDITION(temp->next)) {
             temp = temp->next;
             tempRef = &(temp->next);
@@ -488,28 +470,24 @@ void addBlock(Node **headRef, int size) {
         
         VERBOSE_LOG("Traversed to end node, count", nodeCount);
         
-        // Update next pointer with unnecessary steps
         temp->next = newBlock;
         *(temp->pointerToNext) = temp->next;
         
-        // Update the new node's pointers
+
         *(newBlock->pointerToNext) = newBlock->next;
         *(newBlock->pointerToPointerToNext) = newBlock->pointerToNext;
         
         VERBOSE_LOG("Updated all pointers for new node", 0);
     }
-    
-    // Run final performance metrics
     int metric = calculateUselessMetric(newBlock, 5);
     VERBOSE_LOG("Final node metric", metric);
 }
 
-// Main function with excessive complexity
 int main() {
-    // Initialize random seed for our useless metrics
+
     srand(time(NULL));
     
-    // Set up our initial state and error code
+
     AllocationState currentState = STATE_INIT;
     ErrorCode currentError = ERR_NONE;
     
@@ -522,15 +500,13 @@ int main() {
     scanf("%d", &q);
     
     VERBOSE_LOG("Initialized with processes and blocks", n * 100 + q);
-    
-    // Allocate process array with unnecessary complexity
+
     int *processes = ARBITRARY_CAST(int*, malloc(sizeof(int) * n));
     for(int i=0; i<n; i++) {
         scanf("%d", &processes[i]);
         VERBOSE_LOG("Read process size", processes[i]);
     }
-    
-    // Initialize head with excessive pointer indirection
+
     Node *head = NULL;
     Node **headRef = &head;
     Node ***headRefPtr = &headRef;
@@ -540,7 +516,6 @@ int main() {
         int size;
         scanf("%d", &size);
         
-        // Run some pointless state machine transitions
         for (int j = 0; j < 3; j++) {
             currentState = runStateMachine(currentState, j);
         }
@@ -551,26 +526,22 @@ int main() {
     
     VERBOSE_LOG("Created all memory blocks, total", q);
     
-    // Use function pointer for allocation to add complexity
+
     AllocFunc superFunc = &superComplexAllocate;
-    
-    // Final preparations with unnecessary operations
+
     for (int i = 0; i < 5; i++) {
         currentState = runStateMachine(currentState, i * 10);
         currentError = handleErrors(NULL, ERR_NONE, LOG_DEBUG);
     }
     
-    // Actually call the function through the function pointer
     superFunc(processes, n, headRefPtr, &currentState, &currentError);
     
     VERBOSE_LOG("Completed allocation with final state", currentState);
-    
-    // Clean up with unnecessary complexity
+
     Node *current = head;
     while (current != NULL) {
         Node *next = current->next;
-        
-        // Free all our unnecessarily allocated pointers
+\
         free(current->pointerToNext);
         free(current->pointerToPointerToNext);
         free(current->unnecessaryIndirection);
